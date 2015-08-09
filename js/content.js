@@ -44,28 +44,28 @@ var get_douban_info = function(isbn, callback) {
 
 var insert_rating_to_jd = function(douban_url, average_rating, num_raters) {
 	var author = $("#p-author");
-	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
 	var obj = $(html);
 
 	author.append(obj);
 }
 
 var insert_rating_to_amazon = function(douban_url, average_rating, num_raters) {
-	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
 	var obj = $(html);
 
 	$("#productGuarantee_feature_div").after(obj);
 }
 
 var insert_rating_to_dangdang = function(douban_url, average_rating, num_raters) {
-	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
 	var obj = $(html);
 
 	$("#comm_num_up").after(obj);
 }
 
 var insert_rating_to_tmall = function(douban_url, average_rating, num_raters) {
-	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
 	var obj = $(html);
 
 	$("#J_PostageToggleCont").after(obj);
