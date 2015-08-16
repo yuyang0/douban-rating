@@ -38,36 +38,36 @@ var get_douban_info = function(isbn, callback) {
 		var average_rating = data["rating"]["average"];
 		var num_raters = data["rating"]["numRaters"];
 		console.log(douban_url, average_rating, num_raters);
-		callback(douban_url, average_rating, num_raters);
+		var html = String.format("<span id=\"douban-rating\">豆瓣评分：<a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+		callback(html);
+	}).fail(function(jqxhr, textStatus, error){
+		var html = null;
+		if (jqxhr.status == 404) {
+			html = "<span id=\"douban-rating\">豆瓣评分：豆瓣上没有这本书. </span>";
+		} else {
+			html = "<span id=\"douban-rating\">豆瓣评分：ajax错误. </span>";
+		}
+		callback(html);
 	});
 }
 
-var insert_rating_to_jd = function(douban_url, average_rating, num_raters) {
-	var author = $("#p-author");
-	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+var insert_rating_to_jd = function(html) {
 	var obj = $(html);
-
-	author.append(obj);
+	$("#p-author").append(obj);
 }
 
-var insert_rating_to_amazon = function(douban_url, average_rating, num_raters) {
-	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+var insert_rating_to_amazon = function(html) {
 	var obj = $(html);
-
 	$("#productGuarantee_feature_div").after(obj);
 }
 
-var insert_rating_to_dangdang = function(douban_url, average_rating, num_raters) {
-	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+var insert_rating_to_dangdang = function(html) {
 	var obj = $(html);
-
 	$("#comm_num_up").after(obj);
 }
 
-var insert_rating_to_tmall = function(douban_url, average_rating, num_raters) {
-	var html = String.format("<span style=\"margin-left:30px;\">豆瓣评分: <a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+var insert_rating_to_tmall = function(html) {
 	var obj = $(html);
-
 	$("#J_PostageToggleCont").after(obj);
 }
 

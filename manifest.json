@@ -5,7 +5,9 @@
    
    "content_scripts": [ {
       "js": [ "js/jquery-1.7.2.js", "js/content.js" ],
-      "matches": [ "http://api.douban.com/v2/book/isbn/", "https://api.douban.com/v2/book/isbn/", "http://item.jd.com/*", "http://www.amazon.cn/gp/product/*", "http://product.dangdang.com/*", "https://detail.tmall.com/*", "http://detail.tmall.com/*"]
+      "css": ["css/content.css"],
+      "matches": [ "http://api.douban.com/v2/book/isbn/", "https://api.douban.com/v2/book/isbn/", "http://item.jd.com/*",
+                   "http://www.amazon.cn/*", "http://product.dangdang.com/*", "https://detail.tmall.com/*", "http://detail.tmall.com/*"]
    }],
    "description": "在京东,亚马逊, 当当, 天猫等电商网站的图书页面显示豆瓣评分以及豆瓣链接.",
    "icons": {
@@ -15,7 +17,7 @@
    
    "manifest_version": 2,
    "name": "豆瓣评分",
-   "permissions": [ "http://item.jd.com/*", "notifications", "cookies", "contextMenus", "storage", "webRequest" ],
+   "permissions": [ "notifications", "cookies", "contextMenus", "storage", "webRequest" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "0.1.0"
 }
