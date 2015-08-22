@@ -1,8 +1,59 @@
 #douban-rating {
+  font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft Yahei","微软雅黑",Tahoma,Arial,Simhei,STXihei,"华文细黑",sans-serif;
+	display: inline-block;
 	margin-left: 20px;
-	color: red;
+  font-size: 14px;
+  padding: 0;
+	/* color: red; */
+	position: relative;
 	/* color: #b5621b; */
 }
+
+#douban-rating .douban-score {
+  font-family: 'Microsoft Yahei';
+  color: red;
+  font-weight: 400;
+}
+#douban-rating .douban-score em {
+  color: red;
+  font-size: 20px;
+}
+
+
+.douban-popup {
+	font-size: 10px;
+    line-height: 18px;
+	display: none;
+}
+
+#douban-rating:hover .douban-popup {
+	position: absolute;
+	display: block;
+}
+
+.power {
+  height: 14px;
+  float: left;
+  margin: 0 3px;
+  background: #f5cbad none repeat scroll 0 0;
+}
+
+.starstop, .stars {
+  display: inline-block;
+  zoom: 1;
+  width: 45px;
+  height: 9px;
+  background: url(chrome-extension://__MSG_@@extension_id__/css/img/smlstars.gif) no-repeat;
+  margin: 3px 3px 0 0;
+  overflow: hidden;
+}
+.starstop {
+	float: left;
+}
+.stars5 {
+  background-position: 0 0;
+}
+
 .allstar50,.allstar45,.allstar40,.allstar35,.allstar30,.allstar25,.allstar20,.allstar15,.allstar10,.allstar05 {
 display: inline-block;
 *display: inline;

@@ -18,7 +18,7 @@ var is_site = function() {
 	    }
     } 
 	return false;
-}
+};
 
 var get_douban_info = function(isbn, callback) {
 	if (isbn == null) {
@@ -36,40 +36,44 @@ var get_douban_info = function(isbn, callback) {
 		var douban_url = data["alt"];
 		var douban_rank_info = data["rating"];
 		var average_rating = data["rating"]["average"];
+		var main_score = parseInt(average_rating);
+		var sub_score = average_rating.split(".")[1];
+		
 		var num_raters = data["rating"]["numRaters"];
 		console.log(douban_url, average_rating, num_raters);
-		var html = String.format("<span id=\"douban-rating\">豆瓣评分：<a href=\"{0}\" target=\"_blank\">{1} ({2}人评价)</a></span>", douban_url, average_rating, num_raters);
+		//var popup_html = String.format("<div class=\"douban-popup\"> <span class=\"stars5 starstop\" title=\"力荐\"></span><div class=\"power\" style=\"width:59px\"></div> 86.8%<br>    <span class=\"stars5 starstop\" title=\"力荐\"></span><div class=\"power\" style=\"width:59px\"></div> 86.8%<br></div>");
+		var html = String.format("<div id=\"douban-rating\"><b>豆瓣评分：</b><span class=\"douban-score\"><em>{1}</em>.{2}</span>分 (<a href=\"{0}\" target=\"_blank\">{3}人评价</a>)</div>", douban_url, main_score, sub_score, num_raters);
 		callback(html);
 	}).fail(function(jqxhr, textStatus, error){
 		var html = null;
 		if (jqxhr.status == 404) {
-			html = "<span id=\"douban-rating\">豆瓣评分：豆瓣上没有这本书. </span>";
+			html = "<span id=\"douban-rating\"><b>豆瓣评分：</b>豆瓣上没有这本书. </span>";
 		} else {
-			html = "<span id=\"douban-rating\">豆瓣评分：ajax错误. </span>";
+			html = "<span id=\"douban-rating\"><b>豆瓣评分：</b>ajax错误. </span>";
 		}
 		callback(html);
 	});
-}
+};
 
 var insert_rating_to_jd = function(html) {
 	var obj = $(html);
 	$("#p-author").append(obj);
-}
+};
 
 var insert_rating_to_amazon = function(html) {
 	var obj = $(html);
 	$("#productGuarantee_feature_div").after(obj);
-}
+};
 
 var insert_rating_to_dangdang = function(html) {
 	var obj = $(html);
 	$("#comm_num_up").after(obj);
-}
+};
 
 var insert_rating_to_tmall = function(html) {
 	var obj = $(html);
 	$("#J_PostageToggleCont").after(obj);
-}
+};
 
 var get_jd_isbn = function(){
 	var keywords = $('meta[name=keywords]').attr("content");
@@ -85,7 +89,7 @@ var get_jd_isbn = function(){
 		}
 		return ret[0];
 	}
-}
+};
 
 var get_amazon_isbn = function(){
 	var isbn = null;
@@ -95,7 +99,7 @@ var get_amazon_isbn = function(){
 		isbn = ret[0];
 	}
 	return isbn;
-}
+};
 
 var get_dangdang_isbn = function() {
 	var keywords = $('meta[name=keywords]').attr("content");
@@ -111,7 +115,7 @@ var get_dangdang_isbn = function() {
 		}
 		return ret[0];
 	}
-}
+};
 
 var get_tmall_isbn = function() {
 	var isbn = null;
@@ -121,7 +125,7 @@ var get_tmall_isbn = function() {
 		isbn = ret[0];
 	}
 	return isbn;
-}
+};
 
 $(document).ready(function(){
 	var isbn = null;
@@ -138,4 +142,4 @@ $(document).ready(function(){
 		isbn = get_tmall_isbn();
 		get_douban_info(isbn, insert_rating_to_tmall);
 	}
-})
+});
