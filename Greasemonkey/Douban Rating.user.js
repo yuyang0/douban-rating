@@ -4,26 +4,26 @@
 // @version      0.1
 // @description  display douban rating and link in e commercial websites' book page, supports jd.com, tmall.com, dangdang.com and amzon.cn..
 // @author       You
-// @match        http://item.jd.com/*
-// @match        https://detail.tmall.com/*
-// @match        http://product.dangdang.com/*
-// @match        http://www.amazon.cn/*
+// @match        *://item.jd.com/*
+// @match        *://detail.tmall.com/*
+// @match        *://product.dangdang.com/*
+// @match        *://www.amazon.cn/*
 // @grant        none
 // @require http://code.jquery.com/jquery-1.8.2.js
 // ==/UserScript==
 
 function addGlobalStyle(css) {
-    var head, style;
-    head = document.getElementsByTagName('head')[0];
-    if (!head) { return; }
-    style = document.createElement('style');
-    style.type = 'text/css';
-    style.innerHTML = css;
-    head.appendChild(style);
+  var head, style;
+  head = document.getElementsByTagName('head')[0];
+  if (!head) { return; }
+  style = document.createElement('style');
+  style.type = 'text/css';
+  style.innerHTML = css;
+  head.appendChild(style);
 }
 $(document).ready(function(){
-addGlobalStyle ( 
-  '#douban-rating {    \
+  addGlobalStyle (
+    '#douban-rating {    \
     font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft Yahei","微软雅黑",Tahoma,Arial,Simhei,STXihei,"华文细黑",sans-serif;  \
 	display: inline-block;    \
 	margin-left: 20px;   \
@@ -42,29 +42,29 @@ addGlobalStyle (
 #douban-rating .douban-score em {  \
   color: red;        \
   font-size: 20px;    \
-}' 
-);
+}'
+  );
 });
 
 String.format = function(src){
-    if (arguments.length === 0) return null;
-    var args = Array.prototype.slice.call(arguments, 1);
-    return src.replace(/\{(\d+)\}/g, function(m, i){
-        return args[i];
-    });
+  if (arguments.length === 0) return null;
+  var args = Array.prototype.slice.call(arguments, 1);
+  return src.replace(/\{(\d+)\}/g, function(m, i){
+    return args[i];
+  });
 };
 
-/* 
+/*
  * test if the current url belongs to specified site.
  * you can specify multiple keywords, eg: is_site("sina", "jd", "taobao")
-*/
+ */
 var is_site = function() {
 	var parts = window.location.hostname.split(".");
-	for (var i=0; i<arguments.length; i++) {  
-        if (parts.indexOf(arguments[i]) >= 0) {
-		    return true;
-	    }
-    } 
+	for (var i=0; i<arguments.length; i++) {
+    if (parts.indexOf(arguments[i]) >= 0) {
+		  return true;
+	  }
+  }
 	return false;
 };
 
@@ -84,20 +84,20 @@ var get_douban_info = function(isbn, callback) {
 		var douban_url = data["alt"];
 		var douban_rank_info = data["rating"];
 		var average_rating = data["rating"]["average"];
-        var main_score = parseInt(average_rating);
+    var main_score = parseInt(average_rating);
 		var sub_score = average_rating.split(".")[1];
-		
-        var num_raters = data["rating"]["numRaters"];
+
+    var num_raters = data["rating"]["numRaters"];
 		//console.log(douban_url, average_rating, num_raters);
-		
+
 		var html = String.format("<div id=\"douban-rating\"><b>豆瓣评分：</b><span class=\"douban-score\"><em>{1}</em>.{2}</span>分 (<a href=\"{0}\" target=\"_blank\">{3}人评价</a>)</div>", douban_url, main_score, sub_score, num_raters);
-        callback(html);
+    callback(html);
 	}).fail(function(jqxhr, textStatus, error){
 		var html = null;
 		if (jqxhr.status == 404) {
 			html = "<span id=\"douban-rating\"><b>豆瓣评分：</b>豆瓣上没有这本书. </span>";
 		} else {
-            html = String.format("<span id=\"douban-rating\"><b>豆瓣评分：</b>ajax错误({0}). </span>", jqxhr.status);
+      html = String.format("<span id=\"douban-rating\"><b>豆瓣评分：</b>ajax错误({0}). </span>", jqxhr.status);
 		}
 		callback(html);
 	});
@@ -121,7 +121,7 @@ var insert_rating_to_dangdang = function(html) {
 var insert_rating_to_tmall = function(html) {
 	var obj = $(html);
 	$("#J_PostageToggleCont").after(obj);
-}
+};
 
 var get_jd_isbn = function(){
 	var keywords = $('meta[name=keywords]').attr("content");
@@ -137,7 +137,7 @@ var get_jd_isbn = function(){
 		}
 		return ret[0];
 	}
-}
+};
 
 var get_amazon_isbn = function(){
 	var isbn = null;
@@ -147,7 +147,7 @@ var get_amazon_isbn = function(){
 		isbn = ret[0];
 	}
 	return isbn;
-}
+};
 
 var get_dangdang_isbn = function() {
 	var keywords = $('meta[name=keywords]').attr("content");
@@ -163,7 +163,7 @@ var get_dangdang_isbn = function() {
 		}
 		return ret[0];
 	}
-}
+};
 
 var get_tmall_isbn = function() {
 	var isbn = null;
@@ -173,7 +173,7 @@ var get_tmall_isbn = function() {
 		isbn = ret[0];
 	}
 	return isbn;
-}
+};
 
 $(document).ready(function(){
 	var isbn = null;
@@ -190,4 +190,4 @@ $(document).ready(function(){
 		isbn = get_tmall_isbn();
 		get_douban_info(isbn, insert_rating_to_tmall);
 	}
-})
+});
