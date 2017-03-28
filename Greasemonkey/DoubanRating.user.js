@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Douban Rating
-// @namespace    http://your.homepage/
+// @name         豆瓣图书评分|京东|亚马逊|天猫|当当
+// @namespace    https://github.com/yuyang0/douban-rating
 // @version      0.1
-// @description  display douban rating and link in e commercial websites' book page, supports jd.com, tmall.com, dangdang.com and amzon.cn..
-// @author       You
+// @description  在电商网站的图书页面显示豆瓣评分，支持jd.com, tmall.com, dangdang.com and amzon.cn..
+// @author       Yu Yang
 // @match        *://item.jd.com/*
 // @match        *://detail.tmall.com/*
 // @match        *://product.dangdang.com/*
